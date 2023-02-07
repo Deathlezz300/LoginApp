@@ -1,6 +1,6 @@
 import React from 'react'
 import { AtuhRoutes } from '../auth/Routes/AtuhRoutes'
-import { Routes } from 'react-router-dom'
+import { Navigate, Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { JournalRoutes } from '../Journal/Routes/JournalRoutes'
 
@@ -11,6 +11,7 @@ export const JournalAppRouter = () => {
       <Routes>
           <Route path='auth/*' element={<AtuhRoutes/>}/>
           <Route path='/*' element={<JournalRoutes/>}/>
+          <Route path='/' element={<Navigate to='auth/login'/>}/>
       </Routes>
     
     </>
