@@ -9,10 +9,18 @@ import { startGoogleSign, startSignInWithEmailPassword } from '../../store/auth/
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import {Alert} from '@mui/material'
+import { useState } from 'react'
+
+const formValidations={
+  email:[(value)=>value.includes('@'),'Debe contener @'],
+  password:[(value)=>value.length>=6,'La clave debe tener mas de 6 caracteres'],
+}
 
 export const LoginPage = () => {
 
-  const {form,onInputChange,onResetForm}=useForm({email:'',password:''});
+  const [formSubmit, setformSubmit] = useState(false)
+
+  const {form,onInputChange,formValidation,isFormValid}=useForm({email:'',password:''},formValidations);
 
   const {status,errorMessage}=useSelector(state=>state.auth);
 
@@ -25,10 +33,13 @@ export const LoginPage = () => {
 
   const HandleSubmit=(evento)=>{
     evento.preventDefault();
+    setformSubmit(true);
   }
 
   const onLogin=()=>{
-    dispatch(startSignInWithEmailPassword(form));
+    if(isFormValid){
+      return dispatch(startSignInWithEmailPassword(form));
+    }
   }
 
   const onGoogleSign=()=>{
@@ -41,10 +52,10 @@ export const LoginPage = () => {
       <form onSubmit={HandleSubmit} id='formulario'>
           <Grid container>
             <Grid item xs={12} sx={{paddingBottom:2}}>
-              <TextField value={form.email} onChange={onInputChange} name='email' label="Correo" type='email' placeholder='usuario@gmail.com' fullWidth></TextField>
+              <TextField error={!!formValidation.emailValid && formSubmit } helperText={formValidation.emailValid} value={form.email} onChange={onInputChange} name='email' label="Correo" type='email' placeholder='usuario@gmail.com' fullWidth></TextField>
             </Grid>
             <Grid item xs={12}>
-              <TextField value={form.password} onChange={onInputChange} name='password' label="Contraseña" type='password' fullWidth></TextField>
+              <TextField error={!!formValidation.passwordValid && formSubmit} helperText={formValidation.passwordValid} value={form.password} onChange={onInputChange} name='password' label="Contraseña" type='password' fullWidth></TextField>
             </Grid>
           </Grid>
 

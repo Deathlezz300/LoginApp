@@ -17,9 +17,8 @@ export const useForm=(initialState,formValidations={})=>{
             if(formValidation[formValue]!=null){
                 return false
             }
-
-            return true
         }
+        return true
 
     } , [formValidation]);
 

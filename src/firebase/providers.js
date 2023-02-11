@@ -43,13 +43,15 @@ export const registerUserWithEmailPassword=async({email,password,name})=>{
     try{
         const resp=await createUserWithEmailAndPassword(FirebaseAuth,email,password);
         const {uid,photoURL}=resp.user;
-        updateProfile(FirebaseAuth.currentUser,{name});
+        updateProfile(resp.user,{
+            displayName:name
+        })
         return{
             Ok:true,
             uid,
             photoURL,
             email,
-            name
+            displayName:name
         }
 
     }catch(error){
@@ -72,7 +74,6 @@ export const SignInWithEmailPassword=async({email,password})=>{
             displayName
         }
     }catch(error){
-        console.log(error.code)
         const message=detectErrorMessage(error.code);
         return{
             Ok:false,
@@ -86,4 +87,8 @@ const detectErrorMessage=(errorMessage)=>{
         return error2.name===errorMessage.toString();
     });
     return resp.value;
+}
+
+export const LogOutFirebase=async()=>{
+    return await FirebaseAuth.signOut();
 }
