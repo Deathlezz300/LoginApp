@@ -1,26 +1,37 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Button, Grid, Link, TextField } from '@mui/material'
 import { Typography } from '@mui/material'
 import { Google } from '@mui/icons-material'
 import { Link as RouterLink } from 'react-router-dom'
 import { AuthLayout } from './AuthLayout'
 import { useForm } from '../../Hooks/useForm'
+import { useDispatch } from 'react-redux'
+import { startCreatingUserWithEmailPassword } from '../../store/auth/thunks'
+import { useSelector } from 'react-redux'
+import {Alert} from '@mui/material'
 
 const formValidations={
-  email:[(value)=>value.includes('@'),'No es una direccion de correo'],
+  email:[(value)=>value.includes('@'),'Debe contener @'],
   password:[(value)=>value.length>=6,'La clave debe tener mas de 6 caracteres'],
   name:[(value)=>value.length>=1,'El nombre es obligatorio']
 }
-
 export const RegisterPage = () => {
 
+  const {status,errorMessage}=useSelector(state=>state.auth);
+  const isCheckingAuthentication=useMemo(()=>status==='checking',[status]);
+
   const [formSubmit, setFormSubmit] = useState(false);
+
+  const dispatch=useDispatch();
 
   const {form,onInputChange,formValidation,isFormValid}=useForm({name:'',email:'',password:''},formValidations)
 
   const handleSubmit=(evento)=>{
     evento.preventDefault();
     setFormSubmit(true);
+    if(isFormValid){
+      dispatch(startCreatingUserWithEmailPassword(form));
+    }
   }
 
   return (
@@ -40,8 +51,13 @@ export const RegisterPage = () => {
           </Grid>
 
           <Grid container spacing={2} sx={{paddingTop:1.5}}>
+
+            <Grid item xs={12} display={!!errorMessage ? '':'none'}>
+                <Alert severity='error'>{errorMessage}</Alert>
+            </Grid>
+
             <Grid item xs={12} >
-              <Button type='submit' variant='contained' fullWidth>Crear cuenta</Button>                
+              <Button disabled={isCheckingAuthentication} type='submit' variant='contained' fullWidth>Crear cuenta</Button>                
             </Grid>
             <Grid container direction='row' justifyContent='end' sx={{paddingTop:1}}>
                 <Typography sx={{mr:1}}>¿Ya tienes una cuenta?</Typography>
