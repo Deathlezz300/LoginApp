@@ -6,7 +6,8 @@ import { useSelector } from 'react-redux'
 export const SideBar = ({drawerWidth}) => {
   
    const {displayName}=useSelector(state=>state.auth);
-  
+   const {notes}=useSelector(state=>state.journal);
+
     return (
     <Box component='nav' sx={{width:{sm:drawerWidth},flexShrink:{sm:0}}}>
         <Drawer variant='permanent' open sx={{
@@ -18,18 +19,17 @@ export const SideBar = ({drawerWidth}) => {
             <Typography variant='h6' noWrap component='div'>{displayName}</Typography>
         </Toolbar>
         <Divider/>
-        
         <List>
             {
-                ['Enero','Febero','Marzo','Abril'].map(mes=>{
-                    return <ListItem key={mes} disablePadding>
+                notes?.map(nota=>{
+                    return <ListItem key={nota.id} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
                                 <TurnedInNot/>
                             </ListItemIcon>
                             <Grid container>
-                                <ListItemText primary={mes}/>
-                                <ListItemText secondary={'Texto de ejemplo 123456 sisas'}/>
+                                <ListItemText primary={nota.title}/>
+                                <ListItemText secondary={nota.body}/>
                             </Grid>
                         </ListItemButton>
                     </ListItem>
