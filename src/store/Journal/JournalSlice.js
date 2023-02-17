@@ -22,8 +22,16 @@ export const JournalSlice = createSlice({
         setSaving:(state)=>{
             state.isSaving=true;
         },
-        updateNotes:(state)=>{
-
+        updateNotes:(state,action)=>{
+            state.isSaving=false;
+            state.notes.map(note=>{
+                if(note.id===action.payload.id){
+                    note.body=action.payload.body;
+                    note.title=action.payload.title;
+                    note.imagesURLS=action.payload.imagesURLS;
+                }
+                return note;
+            });
         },
         deleteNoteById:(state)=>{
 

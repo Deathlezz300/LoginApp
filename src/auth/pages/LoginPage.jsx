@@ -16,11 +16,16 @@ const formValidations={
   password:[(value)=>value.length>=6,'La clave debe tener mas de 6 caracteres'],
 }
 
+const initalForm={
+  email:'',
+  password:''
+}
+
 export const LoginPage = () => {
 
   const [formSubmit, setformSubmit] = useState(false)
 
-  const {form,onInputChange,formValidation,isFormValid}=useForm({email:'',password:''},formValidations);
+  const {form,onInputChange,formValidation,isFormValid}=useForm(initalForm,formValidations);
 
   const {status,errorMessage}=useSelector(state=>state.auth);
 

@@ -15,6 +15,13 @@ const formValidations={
   password:[(value)=>value.length>=6,'La clave debe tener mas de 6 caracteres'],
   name:[(value)=>value.length>=1,'El nombre es obligatorio']
 }
+
+const initalForm={
+  name:'',
+  email:'',
+  password:''
+}
+
 export const RegisterPage = () => {
 
   const {status,errorMessage}=useSelector(state=>state.auth);
@@ -24,7 +31,7 @@ export const RegisterPage = () => {
 
   const dispatch=useDispatch();
 
-  const {form,onInputChange,formValidation,isFormValid}=useForm({name:'',email:'',password:''},formValidations)
+  const {form,onInputChange,formValidation,isFormValid}=useForm(initalForm,formValidations)
 
   const handleSubmit=(evento)=>{
     evento.preventDefault();

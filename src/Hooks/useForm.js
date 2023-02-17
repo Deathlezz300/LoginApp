@@ -10,6 +10,10 @@ export const useForm=(initialState,formValidations={})=>{
     useEffect(() => {
         createValidators();      
     }, [form])
+
+    useEffect(()=>{
+        setform(initialState);
+    },[initialState]);
     
     const isFormValid=useMemo(()=>{
 
@@ -48,6 +52,7 @@ export const useForm=(initialState,formValidations={})=>{
     };
 
     return {
+        ...form,
         form,
         onInputChange,
         onResetForm,
