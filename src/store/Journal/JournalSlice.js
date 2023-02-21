@@ -38,10 +38,14 @@ export const JournalSlice = createSlice({
         },
         deleteNoteById:(state)=>{
 
+        },
+        setImagesURLs:(state,action)=>{
+            state.active.imageURLS=[...state.active.imageURLS,...action.payload];
+            state.isSaving=false;
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { addNewEmptyNote,setActiveNote,setNotes,setSaving,updateNotes,deleteNoteById } = JournalSlice.actions;
+export const { addNewEmptyNote,setActiveNote,setNotes,setSaving,updateNotes,deleteNoteById,setImagesURLs } = JournalSlice.actions;

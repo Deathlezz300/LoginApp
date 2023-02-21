@@ -1,6 +1,7 @@
 import {collection, doc, getDocs, setDoc} from 'firebase/firestore/lite'
 import { FirebaseDB } from '../../firebase/config';
-import { addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNotes } from './JournalSlice';
+import { fileUpload } from '../../Journal/helpers/fileUpload';
+import { addNewEmptyNote, setActiveNote, setImagesURLs, setNotes, setSaving, updateNotes } from './JournalSlice';
 
 export const startNewNote=()=>{
     return async(dispatch,getState)=>{
@@ -53,5 +54,19 @@ export const UpdateNote=()=>{
         const docRef=doc(FirebaseDB,url);
         await setDoc(docRef,noteToFireStore,{merge:true});
         dispatch(updateNotes({id,title,body,imagesURLS,date}));
+    }
+}
+
+export const startUploadingFiles=(files=[])=>{
+    return async(dispatch)=>{
+        dispatch(setSaving());
+
+        const fileUploadPromises=[];
+        for (const file of files) {
+            fileUploadPromises.push(fileUpload(file));
+        }
+        
+        const imagesURLS=await Promise.all(fileUploadPromises);
+        dispatch(setImagesURLs(imagesURLS));
     }
 }
