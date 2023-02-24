@@ -36,8 +36,10 @@ export const JournalSlice = createSlice({
             });
             state.messageSaved=`${action.payload.title} fue actualizada correctamente`
         },
-        deleteNoteById:(state)=>{
-
+        deleteNoteById:(state,action)=>{
+            state.active=null;
+            state.notes=state.notes.filter(note=>note.id!==action.payload);
+            state.isSaving=false
         },
         setImagesURLs:(state,action)=>{
             state.active.imagesURLS=[...state.active.imagesURLS,...action.payload];
