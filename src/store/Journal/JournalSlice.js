@@ -30,7 +30,7 @@ export const JournalSlice = createSlice({
                 if(note.id===action.payload.id){
                     note.body=action.payload.body;
                     note.title=action.payload.title;
-                    note.imagesURLS=action.payload.imagesURLS;
+                    note.imagesURLS=[...action.payload.imagesURLS];
                 }
                 return note;
             });
@@ -40,12 +40,18 @@ export const JournalSlice = createSlice({
 
         },
         setImagesURLs:(state,action)=>{
-            state.active.imageURLS=[...state.active.imageURLS,...action.payload];
+            state.active.imagesURLS=[...state.active.imagesURLS,...action.payload];
             state.isSaving=false;
+        },
+        clearDataLogOut:(state)=>{
+            state.isSaving=false;
+            state.notes=[];
+            state.active=null;
+            state.messageSaved='';
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { addNewEmptyNote,setActiveNote,setNotes,setSaving,updateNotes,deleteNoteById,setImagesURLs } = JournalSlice.actions;
+export const { addNewEmptyNote,setActiveNote,setNotes,setSaving,updateNotes,deleteNoteById,setImagesURLs,clearDataLogOut } = JournalSlice.actions;

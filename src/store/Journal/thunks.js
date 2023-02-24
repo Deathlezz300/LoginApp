@@ -30,7 +30,6 @@ export const startLoadingNotes=()=>{
         const docs= await getDocs(collectionRef);
 
         const notes=[];
-
         docs.forEach(note=>{
             notes.push( {id:note.id,...note.data()} );
         });
@@ -50,7 +49,7 @@ export const UpdateNote=()=>{
             imagesURLS
         }
         const url=`${uid}/journal/notes/${id}`;
-
+        console.log(imagesURLS);
         const docRef=doc(FirebaseDB,url);
         await setDoc(docRef,noteToFireStore,{merge:true});
         dispatch(updateNotes({id,title,body,imagesURLS,date}));

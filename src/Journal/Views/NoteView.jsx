@@ -66,7 +66,7 @@ export const NoteView = () => {
             <TextField name='title' onChange={onInputChange} value={title} type='text' variant='filled' fullWidth placeholder='Ingrese un titulo' label='Titulo' sx={{border:'none',mb:1}}/>
             <TextField name='body' onChange={onInputChange} value={body} rows={5} type='text' variant='filled' fullWidth placeholder='¿Que sucedió hoy?' label='Descripcion' sx={{border:'none',mb:1}}/>
         </Grid>
-        <ImageGallery/>
+        <ImageGallery images={imagesURLS}/>
     </Grid>
   )
 }
