@@ -57,3 +57,4 @@ export const JournalSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { addNewEmptyNote,setActiveNote,setNotes,setSaving,updateNotes,deleteNoteById,setImagesURLs,clearDataLogOut } = JournalSlice.actions;
+
