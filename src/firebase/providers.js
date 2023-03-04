@@ -12,6 +12,10 @@ const errorsMessage=[
     {
         name:'auth/wrong-password',
         value:'Contraseña Incorrecta'
+    },
+    {
+        name:'auth/user-not-found',
+        value:'Esta cuenta no está registrada'
     }
 ]
 
@@ -74,6 +78,7 @@ export const SignInWithEmailPassword=async({email,password})=>{
             displayName
         }
     }catch(error){
+        console.log(error.code)
         const message=detectErrorMessage(error.code);
         return{
             Ok:false,
