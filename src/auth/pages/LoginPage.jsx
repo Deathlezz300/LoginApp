@@ -60,7 +60,7 @@ export const LoginPage = () => {
               <TextField error={!!formValidation.emailValid && formSubmit } helperText={formValidation.emailValid} value={form.email} onChange={onInputChange} name='email' label="Correo" type='email' placeholder='usuario@gmail.com' fullWidth></TextField>
             </Grid>
             <Grid item xs={12}>
-              <TextField error={!!formValidation.passwordValid && formSubmit} helperText={formValidation.passwordValid} value={form.password} onChange={onInputChange} name='password' label="Contraseña" type='password' fullWidth></TextField>
+              <TextField error={!!formValidation.passwordValid && formSubmit} helperText={formValidation.passwordValid} value={form.password} onChange={onInputChange} name='password' label="Contraseña" type='password' id='password' fullWidth></TextField>
             </Grid>
           </Grid>
 
@@ -73,7 +73,7 @@ export const LoginPage = () => {
               <Button disabled={isAuthenticating} onClick={onLogin} type='submit' variant='contained' fullWidth>Login</Button>                
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Button disabled={isAuthenticating} type='submit' onClick={onGoogleSign} variant='contained' fullWidth>
+              <Button disabled={isAuthenticating} aria-label="google-btn" type='submit' onClick={onGoogleSign} variant='contained' fullWidth>
                   <Google/>
                   <Typography sx={{marginLeft:1}}>Google</Typography>
                 </Button>                

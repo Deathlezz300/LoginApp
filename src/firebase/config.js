@@ -6,11 +6,11 @@ import { getEnviroments } from "../Helpers/Enviroments";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-const {
-  VITE_HOLA,
-  VITE_MONDA
-}=getEnviroments();
-console.log(VITE_HOLA,VITE_MONDA);
+// const {
+//   VITE_HOLA,
+//   VITE_MONDA
+// }=getEnviroments();
+// console.log(VITE_HOLA,VITE_MONDA);
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
